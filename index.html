@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Kejutan</title>
+    <!-- Import Font Estetik -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           1. PENGATURAN DASAR & BACKGROUND GIF
+           ========================================= */
+        
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            /* Latar belakang GIF dari folder kamu */
+            background-image: url('assets/gif/Proyek_Baru_104_121ED15.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+        /* Lapisan Overlay Transparan */
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            z-index: 1;
+            transition: opacity 0.8s ease;
+            /* Transisi saat fade out */
+        }
+        /* === TOMBOL MUSIK POJOK KANAN ATAS === */
+        
+        .music-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+        
+        .music-btn:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .music-btn svg {
+            fill: #fff;
+            width: 22px;
+            height: 22px;
+        }
+        /* =========================================
+           2. HALAMAN LOGIN
+           ========================================= */
+        
+        #login-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            z-index: 2;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .login-box {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            border: 1px solid #eee;
+        }
+        
+        .login-box h2 {
+            font-family: 'Playfair Display', serif;
+            color: #111;
+            margin-bottom: 5px;
+            font-size: 1.8rem;
+        }
+        
+        .login-box p {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 25px;
+        }
+        /* FOTO PROFIL LINGKARAN */
+        
+        .profile-pic {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px auto;
+            display: block;
+            border: 3px solid #d88ab5;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        .input-group label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input:focus {
+            border-color: #d88ab5;
+            outline: none;
+            box-shadow: 0 0 5px rgba(216, 138, 181, 0.2);
+        }
+        
+        .btn-login {
+            background-color: #111;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-login:hover {
+            background-color: #d88ab5;
+        }
+        /* =========================================
+           3. HALAMAN KEJUTAN
+           ========================================= */
+        
+        #surprise-section {
+            display: none;
+            /* Disembunyikan di awal */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+            background-color: #FAFAFA;
+            /* Background bersih untuk halaman 2 */
+            min-height: 100vh;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            padding: 0 20px 50px 20px;
+            box-sizing: border-box;
+        }
+        
+        header {
+            text-align: center;
+            padding: 80px 20px 30px;
+        }
+        
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        
+        .highlight-pink {
+            color: #d88ab5;
+            font-style: italic;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .surprise-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .tiktok-section {
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .manga-panel {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 30px auto;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .manga-panel:hover {
+            transform: scale(1.02);
+            border-color: #d88ab5;
+        }
+        
+        .manga-panel img {
+            width: 100%;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        
+        .manga-panel p {
+            font-family: 'Playfair Display', serif;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #444;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        @media (max-width: 400px) {
+            .login-box {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+        /* =========================================
+           4. OVERLAY SURAT + CONFETTI
+           ========================================= */
+        
+        #envelope-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(20, 15, 25, 0.55);
+            backdrop-filter: blur(6px);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        
+        #envelope-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        #envelope-overlay.fade-out {
+            opacity: 0;
+        }
+        /* Confetti canvas, full screen, di belakang surat */
+        
+        #confetti-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        /* Wadah surat */
+        
+        .envelope-wrap {
+            position: relative;
+            width: 320px;
+            max-width: 85vw;
+            cursor: pointer;
+            transform: scale(0.85);
+            animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-align: center;
+            z-index: 2;
+        }
+        
+        @keyframes popIn {
+            from {
+                transform: scale(0.6);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        /* Badan surat (kotak bawah) */
+        
+        .envelope-body {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+        }
+        /* Garis V badan surat (lipatan dalam) */
+        
+        .envelope-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 49.5%, #f3d4e4 50%, transparent 50.5%), linear-gradient(225deg, transparent 49.5%, #f3d4e4 50%, transparent 50.5%);
+            background-size: 50% 100%;
+            background-repeat: no-repeat;
+            background-position: left top, right top;
+            z-index: 1;
+        }
+        /* Kartu kecil di tengah surat sebagai aksen */
+        
+        .envelope-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            z-index: 2;
+            animation: heartbeat 1.4s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+            }
+        }
+        /* Penutup atas surat (flap) - segitiga */
+        
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            background: linear-gradient(135deg, #ffb6d9, #d88ab5);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+            z-index: 3;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        /* Saat surat dibuka, flap terbuka ke atas/belakang */
+        
+        .envelope-wrap.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+        /* Kertas/teks yang muncul keluar dari surat saat dibuka */
+        
+        .envelope-letter {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translate(-50%, 0) scale(0.9);
+            width: 85%;
+            background: #fffdf8;
+            border: 1px solid #f3d4e4;
+            border-radius: 6px;
+            padding: 20px 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s, top 0.5s ease 0.3s;
+            z-index: 2;
+            font-family: 'Playfair Display', serif;
+            color: #555;
+        }
+        
+        .envelope-wrap.open .envelope-letter {
+            top: -60px;
+            opacity: 1;
+            transform: translate(-50%, 0) scale(1);
+            z-index: 4;
+        }
+        
+        .envelope-letter h3 {
+            margin: 0 0 8px 0;
+            color: #d88ab5;
+            font-size: 1.3rem;
+        }
+        
+        .envelope-letter p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .envelope-caption {
+            margin-top: 25px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-style: italic;
+            opacity: 0.9;
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- === AUDIO MUSIK === -->
+    <audio id="bg-music" loop>
+        <source src="Assets/audio/Vacations - Telephones - VACATIONS.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- === TOMBOL MUTE / UNMUTE === -->
+    <button class="music-btn" onclick="toggleMusic()" id="music-toggle" title="Putar/Hentikan Musik">
+        <svg id="icon-muted" viewBox="0 0 24 24">
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+        </svg>
+        <svg id="icon-playing" style="display: none;" viewBox="0 0 24 24">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+    </button>
+
+    <!-- Lapisan Overlay Transparan -->
+    <div class="overlay" id="bg-overlay"></div>
+
+    <!-- =========================================
+         OVERLAY SURAT + CONFETTI
+         ========================================= -->
+    <div id="envelope-overlay">
+        <canvas id="confetti-canvas"></canvas>
+
+        <div>
+            <div class="envelope-wrap" id="envelope-wrap" onclick="bukaSurat()">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body">
+                    <div class="envelope-heart">💌</div>
+                </div>
+                <div class="envelope-letter">
+                    <h3>Happy Birthday, Nana! 🎉</h3>
+                    <p>Ada kejutan kecil buat kamu. Klik lagi buat lanjut ya~</p>
+                </div>
+            </div>
+            <p class="envelope-caption">Tap surat untuk membuka ✨</p>
+        </div>
+    </div>
+
+    <!-- =========================================
+         HALAMAN 1: FORM LOGIN
+         ========================================= -->
+    <div id="login-section">
+        <div class="login-box">
+            <h2>Authentication</h2>
+            <p>Masukkan data rahasia untuk melanjutkan.</p>
+
+            <img src="Assets/img/Screenshot 2026-06-14 141551.png" alt="Foto Profil" class="profile-pic">
+
+            <div class="input-group">
+                <label>Tanggal Ulang Tahun</label>
+                <input type="text" placeholder="Masukan Tanggal Lahirmu!">
+            </div>
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" placeholder="Siapa namamu?">
+            </div>
+            <div class="input-group">
+                <label>Password Rahasia</label>
+                <input type="password" placeholder="Bebas isi apa aja!">
+            </div>
+
+            <button class="btn-login" onclick="bukaKejutan()">Buka Kejutan</button>
+        </div>
+    </div>
+
+    <!-- =========================================
+         HALAMAN 2: KEJUTAN UTAMA
+         ========================================= -->
+    <div id="surprise-section">
+        <header>
+            <h1>Happy Birthday, <br><span class="highlight-pink">Inces Nana.</span></h1>
+            <p>"Because you make it so easy..."</p>
+        </header>
+
+        <div class="personal-message">
+            <p><strong>17 Juni 2006 — 17 Juni 2026</strong> ✨</p>
+            <p>Selamat ulang tahun yang ke-20, HIKMAH NURUL HUSNA! Nggak kerasa ya waktu berjalan secepat ini.</p>
+            <p>Terima kasih udah jadi sosok yang sangat spesial dan KECE ABIS BUAT INCESSS POKONYA MAH. Terima kasih juga buat semua memori seru yang udah kita bikin. Mabar Roblox, muncak bareng, gelisah main map horor sama temen temen yang lain, terus kamu
+                yang nemenin aku ngobrol tiap malem.</p>
+            <p>Semoga di umur yang baru ini kamu selalu dikelilingi kebahagiaan, dijauhkan dari hal-hal buruk, semua yang kamu cita-citakan segera terwujud, dan semoga CEPET KELUAR DARI ORGANISASI. Mari buat lebih banyak kenangan KECE DAn WARNA PINK ke depannya!
+            </p>
+            <p><strong>- Dari Dara -</strong></p>
+        </div>
+
+        <div class="surprise-container">
+            <!-- Slot Video TikTok -->
+            <div class="tiktok-section">
+                <!-- NANTI HAPUS TEKS INI DAN PASTE KODE EMBED TIKTOK DI BAWAH SINI -->
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@tiktok" data-video-id="1234567890" style="max-width: 605px;min-width: 325px;">
+                    <section>
+                        <p>Tempat Video TikTok</p>
+                    </section>
+                </blockquote>
+                <script async src="https://www.tiktok.com/embed.js"></script>
+            </div>
+
+            <div class="personal-message">
+                <h3 class="highlight-pink">Ini dia beberapa kenangan seru kita bareng temen temen juga...</h3>
+            </div>
+
+            <!-- BUNGKUSAN GRID DIMULAI DARI SINI -->
+            <div class="gallery-grid">
+
+                <!-- Foto 1 -->
+                <div class="manga-panel">
+                    <img src="Assets/img/latimojong4.png" alt="Kenangan 1">
+                    <p>Terima kasih udah selalu ada dan jadi Orang Spesial buat aku yang luar biasa.</p>
+                </div>
+
+                <!-- Foto 2 -->
+                <div class="manga-panel">
+                    <img src="Assets/img/latimojong1.png" alt="Kenangan 2">
+                    <p>Semoga di hari spesial ini dan seterusnya, semua yang kamu semogakan terwujud.</p>
+                </div>
+
+                <!-- Foto 3 -->
+                <div class="manga-panel">
+                    <img src="Assets/img/latimojong3.png" alt="Kenangan 3">
+                    <p>Semoga harapannya selalu baik.</p>
+                </div>
+
+                <div class="manga-panel">
+                    <img src="Assets/img/latimojong2.png" alt="Kenangan 4">
+                    <p>Semoga di umur yang baru ini kamu selalu dikelilingi kebahagiaan, dijauhkan dari hal-hal buruk</p>
+                </div>
+
+                <div class="manga-panel">
+                    <img src="Assets/img/latimojong5.png" alt="Kenangan 5">
+                    <p>Selamat datang di usia kepala dua, Nana! Semoga usiamu yang ke-20 ini penuh dengan kejutan manis.</p>
+                </div>
+
+                <div class="manga-panel">
+                    <img src="Assets/img/latimojong6.png" alt="Kenangan 6">
+                    <p>Doa terbaik buat kamu hari ini: semoga sedihmu berkurang dan bahagiamu bertambah berkali-kali lipat.</p>
+                </div>
+
+                <div class="manga-panel">
+                    <img src="Assets/img/muncak1.png" alt="Kenangan 7">
+                    <p>Semoga semua doa yang kamu panjatkan diam-diam di malam hari segera diaminkan oleh semesta</p>
+                </div>
+
+                <div class="manga-panel">
+                    <img src="Assets/img/muncak2png.png" alt="Kenangan 8">
+                    <p>Selamat ulang tahun, Inces Nana. Semoga hari-harimu selalu diisi dengan senyum manismu yang khas itu.</p>
+                </div>
+
+                <div class="manga-panel">
+                    <img src="Assets/img/muncak3.png" alt="Kenangan 9">
+                    <p>Umur baru, semangat baru. Semoga di usia 20 tahun ini kamu makin dewasa dan makin hebat.</p>
+                </div>
+
+                <div class="manga-panel">
+                    <img src="Assets/img/muncak4.png" alt="Kenangan 10">
+                    <p>Jangan pernah capek jadi orang baik ya, Na. Semoga hal-hal baik selalu datang menghampirimu.</p>
+                </div>
+
+                <div class="manga-panel">
+                    <img src="Assets/img/elden4.png" alt="Kenangan 11">
+                    <p>Semoga tahun ini jadi tahun di mana banyak mimpi-mimpimu yang perlahan jadi kenyataan.</p>
+                </div>
+
+                <div class="manga-panel">
+                    <img src="Assets/img/elden2.png" alt="Kenangan 12">
+                    <p>Semoga di usia 20 tahun ini kamu makin dewasa dan makin hebat.</p>
+                </div>
+            </div>
+            <!-- === IMAGE SLIDER SECTION (Foto 13 - 30) === -->
+            <div class="slider-section">
+                <h3 class="highlight-pink">Lebih Banyak Memori ✨</h3>
+
+                <div class="slider-container">
+                    <!-- Foto Slider 13 -->
+                    <div class="slider-item">
+                        <img src="Assets/img/pink1.png" alt="Memori 13">
+                    </div>
+
+                    <!-- Foto Slider 14 -->
+                    <div class="slider-item">
+                        <img src="Assets/img/pink2.png" alt="Memori 14">
+                    </div>
+
+                    <!-- Foto Slider 15 -->
+                    <div class="slider-item">
+                        <img src="Assets/img/pink3.png" alt="Memori 15">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/pink3.png" alt="Memori 15">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/astronot1.png" alt="Memori 16">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/astronot2.png" alt="Memori 17">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/kelinci1.png" alt="Memori 18">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/kelinci2.png" alt="Memori 19">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/kelinci3.png" alt="Memori 20">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/elden1.png" alt="Memori 21">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/elden3.png" alt="Memori 22">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/antartika1.png" alt="Memori 23">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/antartika2.png" alt="Memori 24">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/babi1.png" alt="Memori 25">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/babi2.png" alt="Memori 26">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/buaya1.png" alt="Memori 27">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/f1.png" alt="Memori 28">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/f2.png" alt="Memori 29">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/f3.png" alt="Memori 30">
+                    </div>
+
+                    <div class="slider-item">
+                        <img src="Assets/img/f4.png" alt="Memori 31">
+                    </div>
+
+
+                    <!-- SILAKAN COPAS BLOK <div class="slider-item">...</div> DI ATAS UNTUK SISA FOTONYA SAMPAI 30 -->
+                </div>
+
+                <!-- Tombol Geser Kiri Kanan -->
+                <div class="slider-controls">
+                    <button class="slide-btn" onclick="geserKiri()">&#8592;</button>
+                    <button class="slide-btn" onclick="geserKanan()">&#8594;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="wishes-section">
+            <h3 class="slider-title">Kirim Harapan Buat Ulang Tahun Kali Ini 💌</h3>
+            <p style="color: #666; margin-bottom: 20px; text-align: center;">Tulis doa dan harapan terbaikmu di sini ya!</p>
+
+            <form id="wish-form" onsubmit="tambahHarapan(event)">
+                <input type="text" id="wish-name" placeholder="Nama" required>
+                <textarea id="wish-text" rows="4" placeholder="Tulis harapan panjang lebar di sini..." required></textarea>
+                <button type="submit" class="btn-wish">Kirim Harapan</button>
+            </form>
+
+            <p style="color: #666; margin-bottom: 20px; text-align: center;">Ucapan dan harapan dari Teman Teman</p>
+
+            <div class="wishes-list" id="wishes-list">
+                <div class="wish-card">
+                    <h4>Dara</h4>
+                    <p>Semoga selalu bahagia, Sehat selalu, Panjang Umur, dan ayo buat lebih banyak kenangan warna pink ke depannya!. Dan When yahhhhh✨</p>
+                </div>
+            </div>
+            <div class="wishes-list" id="wishes-list">
+                <div class="wish-card">
+                    <h4>CHISEK</h4>
+                    <p>HABEDE CINTA KU SYANG KU GADIS GRAGASKU WHEHEHEHEHE 😝🤭 CIE KEPALA DUA WOHOPPP PULUPULUPULU 🤯🤯🤯🤯😝😝😝😝😋😋😋 PAJAK ANU NYA DI TUNGGU! 🤭☝☝☝☝☝☝☝</p>
+                </div>
+            </div>
+            <div class="wishes-list" id="wishes-list">
+                <div class="wish-card">
+                    <h4>valleeee</h4>
+                    <p>haaappiiii birthday tooo uuuuu I hope you’re always happy and successful. Semua wishes yang orang-orang kasih aku Aamiin kan</p>
+                </div>
+            </div>
+            <div class="wishes-list" id="wishes-list">
+                <div class="wish-card">
+                    <h4>Vivi</h4>
+                    <p>Hbd semoga panjang umur, sehat selalu dan semoga cepat publik pacaran dgn Dara ya dd 🤗 pokoknya kakak Best wishes for you 🥳🎂</p>
+                </div>
+            </div>
+            <div class="wishes-list" id="wishes-list">
+                <div class="wish-card">
+                    <h4>NUR KAHFI</h4>
+                    <p>Barakallah fii umrik semoga selalu sehat bahagia dan di limpahkan rezeki </p>
+                </div>
+            </div>
+            <div class="wishes-list" id="wishes-list">
+                <div class="wish-card">
+                    <h4>iChigo</h4>
+                    <p>Tetap semangat, jangan menyerah Meskipun cape jangan pernah menyerah! Kejarlah hidupmu sesuai prinsipmu jangan mengikuti kata apa org lain. Dan juga HAPPY BIRTHDAY! SEHAT SELALU</p>
+                </div>
+            </div>
+            <div class="wishes-list" id="wishes-list">
+                <div class="wish-card">
+                    <h4>zheynth</h4>
+                    <p>Happy B'Day NANA...🎂 Semoga setiap doa baik yang kamu simpan diam-diam akhirnya menemukan jalannya. May every small step lead you closer to your dreams.</p>
+                </div>
+            </div>
+            <div class="wishes-list" id="wishes-list">
+                <div class="wish-card">
+                    <h4>Reta</h4>
+                    <p>Happy birthday Nanaaaa 🥳🥳🥳✨️✨️✨️, Semoga yang disemogakan tersemogakann, serta wishing happiest birthday to youuuu 🥳🥳🥳💗💗💗✨️✨️✨️</p>
+                </div>
+                <div>
+                    <p>*ini website statis kamu ketik apapun gabakal kesimpen kok karena ga ada databasenya jadi amann kamu gaperlu takut aku bisa baca apa yang kamu ketik (maaf yaa aku ngerjain cuma semalem doang soalnya xixixixixxiix)
+                    </p>
+                </div>
+            </div>
+            <!-- Ini penutup surprise-container -->
+
+            <footer>
+                Dibuat spesial untuk hari ini 🤍
+            </footer>
+        </div>
+    </div>
+
+    <!-- === MODAL / POP-UP FOTO === -->
+    <div class="modal" id="photo-modal">
+        <span class="close-modal" onclick="tutupModal()">&times;</span>
+
+        <!-- Tombol Navigasi Sebelumnya -->
+        <button class="modal-nav modal-prev" id="modal-prev" aria-label="Foto Sebelumnya">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="Preview Foto">
+            <p id="modal-text"></p>
+        </div>
+
+        <!-- Tombol Navigasi Selanjutnya -->
+        <button class="modal-nav modal-next" id="modal-next" aria-label="Foto Selanjutnya">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
